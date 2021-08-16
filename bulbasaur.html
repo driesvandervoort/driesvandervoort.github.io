@@ -1,70 +1,77 @@
 <html>
     <head>
         <title>Catch Bulbasaur</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    
         <script>
-        
-            const fetchScript = require('../../lib/fetch-script')();
-
-            const LOADER_SRC = 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r86/examples/js/loaders/GLTFLoader.js';
-            
-            const loadLoader = (function () {
-              let promise;
-              return function () {
-                promise = promise || fetchScript(LOADER_SRC);
-                return promise;
-              };
-            }());
-            
-            /**
-             * Legacy loader for glTF 1.0 models.
-             * Asynchronously loads THREE.GLTFLoader from jsdelivr.
-             */
-            module.exports = AFRAME.registerComponent('gltf-model-legacy', {
-              schema: {type: 'model'},
-            
-              init: function () {
-                this.model = null;
-                this.loader = null;
-                this.loaderPromise = loadLoader().then(() => {
-                  this.loader = new THREE.GLTFLoader();
-                  this.loader.setCrossOrigin('Anonymous');
+            AFRAME.registerComponent('ar-shadows', {
+            // Swap an object's material to a transparent shadows-only material while
+            // in AR mode. Intended for use with a ground plane. The object is also
+            // set visible while in AR mode, this is useful if it's hidden in other
+            // modes due to them using a 3D environment.
+            schema: {
+                opacity: {default: 0.3}
+            },
+            init: function () {
+                this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+                this.wasVisible = this.el.getAttribute('visible');
+                if (this.el.sceneEl.is('ar-mode')) {
+                    this.savedMaterial = this.el.object3D.children[0].material;
+                    this.el.object3D.children[0].material = new THREE.ShadowMaterial();
+                    this.el.object3D.children[0].material.opacity = this.data.opacity;
+                    this.el.setAttribute('visible', true);
+                }
                 });
-              },
-            
-              update: function () {
-                const self = this;
-                const el = this.el;
-                const src = this.data;
-            
-                if (!src) { return; }
-            
-                this.remove();
-            
-                this.loaderPromise.then(() => {
-                  this.loader.load(src, function gltfLoaded (gltfModel) {
-                    self.model = gltfModel.scene;
-                    self.model.animations = gltfModel.animations;
-                    el.setObject3D('mesh', self.model);
-                    el.emit('model-loaded', {format: 'gltf', model: self.model});
-                  });
+                this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+                if (this.savedMaterial) {
+                    this.el.object3D.children[0].material = this.savedMaterial;
+                    this.savedMaterial = null;
+                }
+                if (!this.wasVisible) this.el.setAttribute('visible', false);
                 });
-              },
-            
-              remove: function () {
-                if (!this.model) { return; }
-                this.el.removeObject3D('mesh');
-              }
+            }
             });
-            </script>
+        </script>
     </head>
-    <body>
-        <a-scene>
-            <a-assets>
-              <a-asset-item id="tree" src="assets/001/glTF/model.gltf"></a-asset-item>
+    <body style='margin : 0px; overflow: hidden;'>
+        <a-scene cursor="rayOrigin:mouse">
+    
+            <a-assets timeout="30000">
+              <a-asset-item id="bulbasaur" src="assets/bulbasaur3d/bulbasaur.glb" response-type="arraybuffer"></a-asset-item>
             </a-assets>
-            <a-entity scale="0.5 0.5 0.5" gltf-model-legacy="#tree"></a-entity>
-        </a-scene>
-    </body>
+            
+            <a-camera position="0 1.2 0"></a-camera>
+            
+            <a-entity id="character" position="0 0 -3" scale="1 1 1">
+              <a-entity position="0 0 0" rotation="0 0 0"
+                        gltf-model="#bulbasaur"
+                        animation-mixer
+                        audiohandler
+                        shadow="cast: true; receive: false"></a-entity>
+            </a-entity>
+            <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+            <a-light type="directional"
+                     light="castShadow: true;
+                            shadowMapHeight: 1024;
+                            shadowMapWidth: 1024;
+                            shadowCameraLeft: -7;
+                            shadowCameraRight: 5;
+                            shadowCameraBottom: -5;
+                            shadowCameraTop: 5;"
+                     id="light"
+                     target="character"
+                     position="2 3 1.5"></a-light>
+      
+            <!-- This shadow-receiving plane is only visible in AR mode. -->
+            <a-plane height="15" width="15" position="0 0 -3" rotation="-90 0 0"
+                     shadow="receive: true"
+                     ar-shadows="opacity: 0.3"
+                     visible="false"></a-plane>
+          </a-scene>
+      </body>
 </html>
