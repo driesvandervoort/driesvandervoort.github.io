@@ -6,19 +6,13 @@
         <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
-        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
     </head>
     <body style='margin : 0px; overflow: hidden;'>
-        <a-scene cursor="rayOrigin:mouse">
-    
-            <a-assets timeout="3000">
-              <a-asset-item id="bulbasaur" src="https://cdn.glitch.com/cec66725-1998-442a-b9aa-b7301e78fdf0%2Fbulbasaur.glb?v=1629125889809" response-type="arraybuffer"></a-asset-item>
+        <a-scene>
+            <a-assets>
+              <a-asset-item id="bulbasaur" src="https://cdn.glitch.com/cec66725-1998-442a-b9aa-b7301e78fdf0%2Fbulbasaur2.glb?v=1629125909431" response-type="arraybuffer"></a-asset-item>
             </a-assets>
-
-            <a-entity position="0 0 0" rotation="0 0 0"
-            gltf-model="#bulbasaur"
-            animation-mixer
-            shadow="cast: true; receive: false"></a-entity>
+            <a-entity position="0 0 0" rotation="0 0 0" gltf-model="#bulbasaur"></a-entity>
         </a-scene>
     </body>
 </html>
