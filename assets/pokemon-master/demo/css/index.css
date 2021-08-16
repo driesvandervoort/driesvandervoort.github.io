@@ -1,0 +1,107 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #ddd;
+}
+
+.floatfix:after{
+    content:"";
+    display:table;
+    clear:both;
+}
+
+.titleContainer{
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+
+#modelViewerContainer{
+    display: none;
+    position: relative;
+}
+
+#closeBtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    width: 90px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+}
+
+#nextBtn{
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    width: 90px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+}
+
+#listContainer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+
+.modelContainer{
+    display: block;
+    float: left;
+    padding: 5px;
+    margin: 1px;
+    width: 80px;
+    text-align: center;
+}
+
+.modelInfo{
+    text-align: center;
+    font-size: 12px;
+    height: 14px;
+    line-height: 14px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.modelIcon{
+    display: inline-block;
+    background-color: #aaa;
+    border-radius: 8px;
+}
+
+#loading{
+  position: absolute;
+  left: 50%;
+  top:50%;
+  width: 300px;
+  height: 300px;
+  font-size: 24px;
+  margin-left: -150px;
+  margin-top: -150px;
+  line-height: 300px;
+  text-align: center;
+  color:white;
+}
+
+.dg.main{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+}
