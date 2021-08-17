@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Catch Bulbasaur</title>
+        <title>Catch Charmander</title>
         <style>
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -80,7 +80,7 @@
     <body class="inline">
         <a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay;" physics="debug: false" cursor="rayOrigin:mouse">
             <a-assets timeout="30000">
-                <a-asset-item id="bulbasaur" src="assets/bulbasaur.glb"></a-asset-item>
+                <a-asset-item id="charmander" src="assets/charmander.glb"></a-asset-item>
                 <img id="pokeball" src="assets/pokebal.png" crossorigin="anonymous">
             </a-assets>
 
@@ -96,7 +96,7 @@
             <a-entity environment="preset: forest; dressingAmount: 500" hide-in-ar-mode></a-entity>
 
             <a-entity id="pokemon" position="0 0 -5" scale="1 1 1" hide-in-ar-mode>
-                <a-entity position="0 0 0" rotation="0 180 0" gltf-model="#bulbasaur" scale="1 1 1"></a-entity>
+                <a-entity position="0 0 0" rotation="0 180 0" gltf-model="#charmander" scale="1 1 1"></a-entity>
             </a-entity>
             
             <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
@@ -163,6 +163,10 @@
 			function positionPokemon() {
 				pokemon.setAttribute("position", reticle.getAttribute("position"));
 				pokemon.setAttribute("visible", true);
+                tempVector.set(0, 0 ,-1);
+				tempVector.applyQuaternion(reticle.object3D.quaternion);
+				tempQuaternion.setFromUnitVectors(tempVector, upVector);
+				pokemon.object3D.quaternion.multiplyQuaternions(tempQuaternion, reticle.object3D.quaternion);
 			};
 
 			exit.addEventListener('click', function () {
