@@ -8,8 +8,9 @@
         <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
 
     </head>
-    <body style="margin: 0px; overflow: hidden;">
+    <body>
         <a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay;" physics="debug: false" cursor="rayOrigin:mouse">
+            <a-entity environment="preset: forest; dressingAmount: 500" hide-in-ar-mode></a-entity>
             
             <a-assets timeout="30000">
                 <a-asset-item id="bulbasaur" src="assets/bulbasaur.glb"></a-asset-item>
@@ -20,10 +21,7 @@
             </a-entity>
         
             <a-sphere id="ball" scale="0.1" color="orange" position="0 0 0"></a-sphere>
-            
             <a-camera position="0 1.5 0"></a-camera>
-            <a-entity environment="preset: forest; dressingAmount: 500" hide-in-ar-mode></a-entity>
-            <a-sky color="#ECECEC" hide-in-ar-mode></a-sky>
             <a-entity light="type: ambient; intensity: 0.7;"></a-entity>
             <a-light type="directional" id="light" target="character" position="2 1 1.5"></a-light>
         </a-scene>
