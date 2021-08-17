@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Catch Charmander</title>
+        <title>Catch Bulbasaur</title>
         <style>
 			body {
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -163,10 +163,6 @@
 			function positionPokemon() {
 				pokemon.setAttribute("position", reticle.getAttribute("position"));
 				pokemon.setAttribute("visible", true);
-                tempVector.set(0, 0 ,-1);
-				tempVector.applyQuaternion(reticle.object3D.quaternion);
-				tempQuaternion.setFromUnitVectors(tempVector, upVector);
-				pokemon.object3D.quaternion.multiplyQuaternions(tempQuaternion, reticle.object3D.quaternion);
 			};
 
 			exit.addEventListener('click', function () {
