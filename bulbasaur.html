@@ -9,7 +9,7 @@
 
     </head>
     <body style="margin: 0px; overflow: hidden;">
-        <a-scene webxr="optionalFeatures: bounded-floor;" cursor="rayOrigin:mouse">
+        <a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay;" physics="debug: false" cursor="rayOrigin:mouse">
             
             <a-assets timeout="30000">
                 <a-asset-item id="bulbasaur" src="assets/bulbasaur.glb"></a-asset-item>
