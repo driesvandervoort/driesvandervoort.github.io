@@ -11,13 +11,13 @@
     <body>
         <a-scene webxr="optionalFeatures:hit-test;" cursor="rayOrigin:mouse">
             <a-assets timeout="30000">
-                <a-asset-item id="bulbasaur" src="assets/toto.glb"></a-asset-item>
+                <a-asset-item id="bulbasaur" src="assets/dig.glb"></a-asset-item>
             </a-assets>
 
             <a-camera position="0 3 0"></a-camera>
             <a-entity environment="preset: forest; dressingAmount: 500" hide-in-ar-mode></a-entity>
-            <a-entity id="character" position="0 0 -5" scale="0.5 0.5 0.5">
-                <a-entity position="1 1 1" rotation="0 0 0" gltf-model="#bulbasaur" scale="0.5 0.5 0.5" ar-hit-test></a-entity>
+            <a-entity id="character" position="0 0 -5" scale="0.2 0.2 0.2">
+                <a-entity position="1 1 1" rotation="0 0 0" gltf-model="#bulbasaur" scale="0.4 0.4 0.4" ar-hit-test></a-entity>
             </a-entity>
             <a-sky color="#ECECEC" hide-in-ar-mode></a-sky>
             <a-entity light="type: ambient; intensity: 0.7;"></a-entity>
